@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Receipt Generator</title>
+  <link rel="stylesheet" href="stylesss.css">
+  <style>
+    .services { margin-top: 15px; }
+    .service-item { display: flex; gap: 10px; margin-bottom: 10px; }
+    .service-item input { flex: 1; }
+    .add-btn { margin-top: 10px; background: #0078d4; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+    .add-btn:hover { background: #0d3559; }
+    .total-bill { font-weight: bold; font-size: 18px; margin-top: 10px; color: #0d3559; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="branding">
+      <img src="logo.png" alt="Hospital Logo" class="logo">
+      <h1>Hospital Management System</h1>
+    </div>
+    <nav>
+      <ul>
+            <li><a href="home.html">Home</a></li>
+        <li><a href="request-payment.html" >Request Payment</a></li>
+        <li><a href="request-financial-report.html">Request Financial Report</a></li>
+        <li><a href="generate-bill.html" class="active">Generate Bill</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- Form Section -->
+    <div class="form-section">
+      <h2>Enter Patient & Payment Details</h2>
+
+      <label>Patient Name</label>
+      <input type="text" id="patientName" placeholder="Enter full name">
+
+      <label>Patient ID</label>
+      <input type="text" id="patientId" placeholder="Enter Patient ID">
+
+      <label>Invoice ID</label>
+      <input type="text" id="invoiceId" placeholder="Enter Invoice ID">
+
+      <label>Department</label>
+      <select id="department" name="department" required>
+        <option value="">-- Select Department --</option>
+        <option>General Medicine</option>
+        <option>Cardiology</option>
+        <option>Orthopedics</option>
+        <option>Pediatrics</option>
+        <option>Dermatology</option>
+      </select>
+
+      <!-- Services -->
+      <div class="services">
+        <h3>Treatment / Services</h3>
+        <div id="servicesList">
+          <div class="service-item">
+            <input type="text" placeholder="Ex: Consultation" class="service-name">
+            <input type="number" placeholder="Amount (₹)" class="service-amount">
+          </div>
+        </div>
+        <button type="button" class="add-btn" onclick="addService()">+ Add More</button>
+      </div>
+
+      <label>Payment Method</label>
+      <select id="paymentMethod" name="paymentMethod" required>
+        <option value="">-- Select Payment Method --</option>
+        <option>Cash</option>
+        <option>Credit/Debit Card</option>
+        <option>UPI</option>
+        <option>Insurance</option>
+      </select>
+
+      <label>Date</label>
+      <input type="date" id="date">
+
+      <button onclick="generateReceipt()">Generate Receipt</button>
+      <button onclick="window.print()">🖨 Print Receipt</button>
+    </div>
+
+    <!-- Receipt Preview Section -->
+    <div class="receipt-section">
+      <h2>Receipt Preview</h2>
+      <div class="receipt" id="receiptOutput">
+        <h3>Hospital Receipt</h3>
+        <p><strong>Patient Name:</strong> ________</p>
+        <p><strong>Patient ID:</strong> ________</p>
+        <p><strong>Department:</strong> ________</p>
+        <p><strong>Services:</strong></p>
+        <ul id="servicesOutput"><li>________ - ₹0</li></ul>
+        <p class="total-bill">Total Bill: ₹0</p>
+        <p><strong>Payment Method:</strong> ________</p>
+        <p><strong>Date:</strong> ________</p>
+        <hr>
+        <p style="text-align:center;">✅ Thank you! Wishing you good health.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    function addService() {
+      const servicesList = document.getElementById("servicesList");
+      const div = document.createElement("div");
+      div.className = "service-item";
+      div.innerHTML = `
+        <input type="text" placeholder="Ex: X-ray" class="service-name">
+        <input type="number" placeholder="Amount (₹)" class="service-amount">
+      `;
+      servicesList.appendChild(div);
+    }
+
+    function generateReceipt() {
+      const name = document.getElementById("patientName").value;
+      const id = document.getElementById("patientId").value;
+      const dept = document.getElementById("department").value;
+      const method = document.getElementById("paymentMethod").value;
+      const date = document.getElementById("date").value;
+
+      const serviceNames = document.querySelectorAll(".service-name");
+      const serviceAmounts = document.querySelectorAll(".service-amount");
+
+      let servicesHTML = "";
+      let total = 0;
+
+      serviceNames.forEach((input, i) => {
+        const sName = input.value || "N/A";
+        const sAmount = parseFloat(serviceAmounts[i].value) || 0;
+        total += sAmount;
+        servicesHTML += `<li>${sName} - ₹${sAmount.toFixed(2)}</li>`;
+      });
+
+      document.getElementById("receiptOutput").innerHTML = `
+        <h3>Hospital Receipt</h3>
+        <p><strong>Patient Name:</strong> ${name}</p>
+        <p><strong>Patient ID:</strong> ${id}</p>
+        <p><strong>Department:</strong> ${dept}</p>
+        <p><strong>Services:</strong></p>
+        <ul>${servicesHTML}</ul>
+        <p class="total-bill">Total Bill: ₹${total.toFixed(2)}</p>
+        <p><strong>Payment Method:</strong> ${method}</p>
+        <p><strong>Date:</strong> ${date}</p>
+        <hr>
+        <p style="text-align:center;">✅ Thank you! Wishing you good health.</p>
+      `;
+    }
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Hospital Management System | Designed by sourav paul</p>
+  </footer>
+</body>
+</html>
