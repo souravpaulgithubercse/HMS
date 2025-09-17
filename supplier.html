@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Dashboard - Hospital Management System</title>
+    <link rel="stylesheet" href="supplier.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="branding">
+            <img src="logo.png" alt="Hospital Logo">
+            <h1>Hospital Management System</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="generate-bill.html"><i class="fa-solid fa-file-invoice"></i> Generate Bill</a></li>
+                <li><a href="supplier-dashboard.html" class="active"><i class="fa-solid fa-truck"></i> Supplier</a></li>
+                <li class="profile-menu">
+                    <div class="profile-circle" id="profileCircle">S</div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <p id="userName">John Doe</p>
+                        <p id="userEmail">john@example.com</p>
+                        <hr>
+                        <a href="login.html" id="logoutBtn">Log out</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2><i class="fa-solid fa-truck-medical"></i> Supplier Dashboard</h2>
+            <button onclick="showSection('billingAndSending')"><i class="fa-solid fa-pills"></i> Patient Billing</button>
+            <button onclick="showSection('records')"><i class="fa-solid fa-boxes-stacked"></i> Medicine Records</button>
+            <button onclick="showSection('orders')"><i class="fa-solid fa-cart-shopping"></i> Orders</button>
+        </aside>
+
+        <!-- Content -->
+        <main class="content">
+            <!-- Billing & Sending -->
+            <div id="billingAndSending" class="section active">
+                <h2><i class="fa-solid fa-file-invoice-dollar"></i> Patient Medicine Billing</h2>
+                <form id="billingForm" class="form-card">
+                    <input type="text" placeholder="Patient Name" required>
+                    <input type="text" placeholder="Medicine Name" required>
+                    <input type="number" placeholder="Quantity" required>
+                    <input type="number" placeholder="Price per Unit" required>
+                    <button type="submit" class="action"><i class="fa-solid fa-calculator"></i> Generate Bill</button>
+                </form>
+                <div id="billingOutput" class="output-card"></div>
+
+                <h3><i class="fa-solid fa-paper-plane"></i> Send Bill to Pharmacy</h3>
+                <form id="sendBillsForm" class="form-card">
+                    <input type="text" placeholder="Pharmacy Name" required>
+                    <textarea placeholder="Bill Details" required></textarea>
+                    <button type="submit" class="action"><i class="fa-solid fa-paper-plane"></i> Send Bill</button>
+                </form>
+                <div id="sentBills" class="output-card"></div>
+            </div>
+
+            <!-- Records -->
+            <div id="records" class="section">
+                <h2><i class="fa-solid fa-boxes"></i> Medicine Records</h2>
+                <form id="recordForm" class="form-card">
+                    <input type="text" placeholder="Medicine Name" required>
+                    <input type="number" placeholder="Stock Quantity" required>
+                    <button type="submit" class="action"><i class="fa-solid fa-plus"></i> Add Record</button>
+                </form>
+                <table id="recordTable">
+                    <thead>
+                        <tr>
+                            <th>Medicine</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- Orders -->
+            <div id="orders" class="section">
+                <h2><i class="fa-solid fa-cart-shopping"></i> Medicine & Equipment Orders</h2>
+                <form id="orderMedicineForm" class="form-card">
+                    <input type="text" placeholder="Medicine Name" required>
+                    <input type="number" placeholder="Required Quantity" required>
+                    <button type="submit" class="action"><i class="fa-solid fa-truck-medical"></i> Order Medicine</button>
+                </form>
+                <div id="medicineOrders" class="output-card"></div>
+
+                <form id="orderEquipmentForm" class="form-card">
+                    <input type="text" placeholder="Equipment Name" required>
+                    <input type="number" placeholder="Quantity" required>
+                    <button type="submit" class="action"><i class="fa-solid fa-tools"></i> Order Equipment</button>
+                </form>
+                <div id="equipmentOrders" class="output-card"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Hospital Management System | Designed by Sinchan Sarkar</p>
+    </footer>
+
+    <script src="supplier.js"></script>
+</body>
+
+</html>

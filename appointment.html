@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Appointment Booking</title>
+    <link rel="stylesheet" href="appointment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="branding">
+            <img src="logo.png" alt="Hospital Logo" class="logo">
+            <h1>Hospital Management System</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html"><i class="fa fa-home"></i>Home</a></li>
+                <li><a href="appointment.html" class="active"><i class="fa fa-calendar" aria-hidden></i>Appointments</a>
+                </li>
+                <li><a href="about.html"><i class="fa fa-info-circle"></i>About</a></li>
+                <li><a href="contact.html"><i class="fa fa-envelope"></i>Contact</a></li>
+                <li class="profile-menu" style="position: relative;">
+                    <div class="profile-circle" id="profileCircle">S</div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <p id="userName">John Doe</p>
+                        <p id="userEmail">john@example.com</p>
+                        <hr>
+                        <a href="login.html" id="logoutBtn">Log out</a>
+                    </div>
+                </li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Layout -->
+    <main>
+        <!-- Form Section -->
+        <div class="form-container glass-card">
+            <div class="form-header">
+                <h2>📝 Patient Registration</h2>
+            </div>
+
+            <form id="patientForm">
+                <label for="patient_id">Patient ID</label>
+                <input type="text" id="patient_id" name="patient_id" placeholder="Ex: P12345" required>
+
+                <label for="name">Patient Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter patient name" required>
+
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" placeholder="Ex: 25" maxlength="2"
+                    oninput="if(this.value.length>2) this.value=this.value.slice(0,2);" required>
+
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="">-- Select --</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+
+                <label for="address">Address</label>
+                <textarea id="address" name="address" rows="2" placeholder="Enter address" required></textarea>
+
+
+                <label for="mobile">Mobile Number</label>
+                <input type="tel" id="mobile" name="mobile" placeholder="Enter 10-digit mobile number"
+                    pattern="[6-9]{1}[0-9]{9}" maxlength="10" required>
+
+                <label for="history">Medical History</label>
+                <textarea id="history" name="history" rows="3" placeholder="Optional"></textarea>
+
+                <label for="file">Attach File</label>
+                <input type="file" id="file" name="file">
+
+                <div class="time-group">
+                    <div class="time-field">
+                        <label for="time">Appointment Time</label>
+                        <input type="time" id="time" name="time" required>
+                    </div>
+                    <div class="ampm-field">
+                        <label for="ampm">AM/PM</label>
+                        <select id="ampm" name="ampm" required>
+                            <option>AM</option>
+                            <option>PM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label for="date">Appointment Date</label>
+                <input type="date" id="date" name="date" required>
+
+                <button type="submit">Book Appointment</button>
+            </form>
+        </div>
+
+        <!-- Appointment List -->
+        <div class="appointments-container glass-card">
+            <h2>📋 Booked Appointments</h2>
+            <input type="text" id="searchBox" placeholder="🔍 Search by name or ID...">
+            <ul id="appointmentList"></ul>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Hospital Management System | Designe by Souraneel Biswas</p>
+    </footer>
+
+    <script src="appointment.js"></script>
+</body>
+
+</html>

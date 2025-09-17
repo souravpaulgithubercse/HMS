@@ -1,0 +1,338 @@
+/* Global Reset */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #f5f8fc, #eaf1f9);
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Decorative Background Shapes */
+body::before,
+body::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    z-index: 0;
+}
+
+body::before {
+    top: -150px;
+    left: -150px;
+    width: 400px;
+    height: 400px;
+    background: #0078d4;
+}
+
+body::after {
+    bottom: 0px;
+    right: -150px;
+    width: 450px;
+    height: 450px;
+    background: #0d3559;
+}
+
+/* Header */
+
+header {
+    background: linear-gradient(90deg, #0d3559, #0078d4, #00b4d8);
+    color: white;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+header .branding {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header .logo {
+    width: 80px;
+}
+
+header h1 {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+nav a:hover,
+nav a.active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+
+/* Hero Section */
+
+.hero {
+    background: linear-gradient(135deg, #0471c5, #1c9ad0, #23cbde);
+    color: #fff;
+    padding: 80px 20px;
+    text-align: center;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    margin-top: 30px;
+}
+
+.hero h2 {
+    font-size: 36px;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 22px;
+    color: #f1f1f1;
+}
+
+.hero-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff9800, #ff4e50, #9c27b0);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: transform 0.3s, background 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 15px;
+}
+
+.hero-btn:hover {
+    transform: scale(1.07);
+    background: linear-gradient(135deg, #9c27b0, #ff4e50, #ff9800);
+}
+
+
+/* Intro Section */
+
+.intro {
+    max-width: 900px;
+    margin: auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.intro h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #0d3559;
+}
+
+
+/* Features Section */
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.feature-card {
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.feature-card:nth-child(1) {
+    background: linear-gradient(135deg, #6692b7, #087c8b);
+}
+
+.feature-card:nth-child(2) {
+    background: linear-gradient(135deg, #4caf50, #a8db6f);
+}
+
+.feature-card:nth-child(3) {
+    background: linear-gradient(135deg, #d69582, #ff9800);
+}
+
+.feature-card:nth-child(4) {
+    background: linear-gradient(135deg, #9c27b0, #e081a1);
+}
+
+.feature-card h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+}
+
+
+/* Footer */
+
+footer {
+    background: linear-gradient(90deg, #0d3559, #0078d4, #00b4d8);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    font-size: 14px;
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    nav ul {
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+    }
+    .hero h2 {
+        font-size: 28px;
+    }
+    .hero p {
+        font-size: 16px;
+    }
+}
+
+
+/* Buttons */
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Button Variants */
+
+.btn.yellow {
+    background: linear-gradient(135deg, #ffb300, #ff9800);
+}
+
+.btn.green {
+    background: linear-gradient(135deg, #4caf50, #8bc34a);
+}
+
+.btn.blue {
+    background: linear-gradient(135deg, #2196f3, #03a9f4);
+}
+
+.btn.purple {
+    background: linear-gradient(135deg, #9c27b0, #e040fb);
+}
+
+
+/* Hover Effects */
+
+.btn:hover {
+    transform: scale(1.07);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    opacity: 0.9;
+}
+
+/* Profile Circle */
+.profile-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #1167b1;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Dropdown */
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 10px;
+    z-index: 100;
+}
+
+.profile-dropdown p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.profile-dropdown hr {
+    margin: 8px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+.profile-dropdown a {
+    display: block;
+    text-decoration: none;
+    color: #1167b1;
+    font-weight: bold;
+    padding: 5px 0;
+}
+
+.profile-dropdown a:hover {
+    text-decoration: underline;
+}

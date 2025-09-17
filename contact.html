@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - HMS</title>
+  <link rel="stylesheet" href="contact.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="branding">
+      <img src="logo.png" alt="Hospital Logo" class="logo" />
+      <h1>Hospital Management System</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="home.html"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="report.html"><i class="fa fa-chart-line"></i> Reports</a></li>
+        <li><a href="about.html"><i class="fa fa-info-circle"></i> About</a></li>
+        <li><a href="contact.html" class="active"><i class="fa fa-envelope"></i> Contact</a></li>
+        <li><a href="feedback.html"><i class="fa fa-comment-dots"></i> Feedback</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Contact Section -->
+  <main>
+    <section class="contact-section">
+      <h2>Contact Us</h2>
+      <p>We’d love to hear from you! Whether you have a question about features, pricing, or anything else, our
+        team is ready to help.</p>
+
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <form id="contactForm" class="contact-form">
+          <label for="name">Name:</label>
+          <input type="text" id="name" placeholder="Enter your name" required />
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" placeholder="Enter your email" required />
+
+          <label for="message">Message:</label>
+          <textarea id="message" placeholder="Write your message" required></textarea>
+
+          <button type="submit"><i class="fa fa-paper-plane"></i> Send</button>
+        </form>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <h3>Get in Touch</h3>
+          <p><i class="fa fa-map-marker-alt"></i> B. P. Poddar Institute of Management and Technology, Kolkata</p>
+          <p><i class="fa fa-phone"></i> +91 (033) 123-4567</p>
+          <p><i class="fa fa-envelope"></i> info@hms.example</p>
+          <div class="socials">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+
+          <!-- Map + Buttons -->
+          <div class="map-wrapper">
+            <iframe title="map"
+              src="https://maps.google.com/maps?q=22.62967715873586, 88.43458996369212&z=17&output=embed"
+              width="100%" height="250" style="border:0; border-radius: 8px;" allowfullscreen=""
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            <div class="map-links">
+            <a class="btn ghost" target="_blank" rel="noopener noreferrer"
+                href="https://www.google.com/maps/dir/?api=1&destination=22.62967715873586, 88.43458996369212">
+                🧭 Get Directions
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© <span id="year"></span> Hospital Management System | Designed by Sourav Paul</p>
+  </footer>
+
+  <script src="contact.js"></script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reports - HMS</title>
+  <link rel="stylesheet" href="report.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="branding">
+      <img src="logo.png" alt="Hospital Logo" class="logo">
+      <h1>Hospital Management System</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="home.html"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="report.html" class="active"><i class="fa fa-chart-line"></i> Reports</a></li>
+        <li><a href="about.html"><i class="fa fa-info-circle"></i> About</a></li>
+        <li><a href="contact.html"><i class="fa fa-envelope"></i> Contact</a></li>
+        <li><a href="feedback.html"><i class="fa fa-comment-dots"></i> Feedback</a></li>
+        <li class="profile-menu">
+          <div class="profile-circle" id="profileCircle">S</div>
+          <div class="profile-dropdown" id="profileDropdown">
+            <p id="userName">John Doe</p>
+            <p id="userEmail">john@example.com</p>
+            <hr>
+            <a href="login.html" id="logoutBtn">Log out</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Add Report Form -->
+    <div class="card form-card">
+      <div class="card-header">
+        <h3>Add Report</h3>
+      </div>
+      <div class="card-body">
+        <form id="addReportForm">
+          <input type="text" id="patientName" placeholder="Patient Name" required>
+          <select id="reportTypeAdd" required>
+            <option value="">Select Type</option>
+            <option value="admission">Admission</option>
+            <option value="discharge">Discharge</option>
+            <option value="billing">Billing</option>
+            <option value="feedback">Feedback</option>
+          </select>
+          <input type="date" id="reportDateAdd" required>
+          <input type="text" id="reportNote" placeholder="Note">
+          <input type="number" id="reportAmount" placeholder="Amount (if billing)">
+          <button type="submit" class="btn accent"><i class="fa fa-plus"></i> Add Report</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Reports Section -->
+    <section class="reports-section">
+      <div class="top-row">
+        <h2>Reports</h2>
+        <div class="controls">
+          <input type="text" id="quickSearch" placeholder="Search patient, id or note...">
+          <input type="date" id="fromDate">
+          <input type="date" id="toDate">
+          <select id="reportType">
+            <option value="all">All Types</option>
+            <option value="admission">Admissions</option>
+            <option value="discharge">Discharges</option>
+            <option value="billing">Billing</option>
+            <option value="feedback">Feedback</option>
+          </select>
+          <button id="btnFilter" class="btn"><i class="fa fa-filter"></i> Filter</button>
+          <button id="btnExport" class="btn accent"><i class="fa fa-file-csv"></i> Export CSV</button>
+        </div>
+      </div>
+
+      <div class="report-grid">
+        <!-- Report Table -->
+        <div class="card table-card">
+          <div class="card-header">
+            <h3>Report List</h3>
+            <small id="rowCount">0 results</small>
+          </div>
+          <div class="card-body">
+            <div class="table-wrap">
+              <table id="reportTable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Patient</th>
+                    <th>Note</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated dynamically by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary Chart -->
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>Summary</h3>
+          </div>
+          <div class="card-body chart-body">
+            <canvas id="summaryChart" height="240"></canvas>
+            <div class="legend">
+              <div><span class="dot admissions"></span> Admissions</div>
+              <div><span class="dot discharges"></span> Discharges</div>
+              <div><span class="dot billing"></span> Billing</div>
+              <div><span class="dot feedback"></span> Feedback</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© <span id="year"></span> Hospital Management System | Designed by Sourav Paul</p>
+  </footer>
+
+  <!-- Detail Modal -->
+  <div id="detailModal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-modal"><i class="fa fa-times"></i></button>
+      <h3>Report Details</h3>
+      <div id="detailBody"></div>
+      <div class="modal-actions">
+        <button id="closeBtn" class="btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="report.js"></script>
+</body>
+
+</html>

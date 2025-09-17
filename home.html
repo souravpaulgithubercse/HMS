@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Hospital Management System</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="branding">
+            <img src="logo.png" alt="Hospital Logo" class="logo">
+            <h1>Hospital Management System</h1>
+        </div>
+        <nav>
+            <ul>
+            
+                <li><a href="patient-home.html" ><i class="fa fa-home"></i>Home</a></li>
+                <li><a href="report.html"><i class="fa fa-chart-line"></i> Reports</a></li>
+                <li><a href="about.html"><i class="fa fa-info-circle"></i> About</a></li>
+                <li><a href="contact.html"><i class="fa fa-envelope"></i> Contact</a></li>
+                <li><a href="feedback.html"><i class="fa fa-comment-dots"></i> Feedback</a></li>
+                    <li class="profile-menu">
+                    <div class="profile-circle" id="profileCircle">S</div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <p id="userName">John Doe</p>
+                        <p id="userEmail">john@example.com</p>
+                        <hr>
+                        <a href="login.html" id="logoutBtn">Log out</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h2>Welcome to the Hospital Management System</h2>
+            <p>One platform to streamline hospital operations, improve efficiency, and deliver better patient care.</p>
+            <a href="#features" class="hero-btn">Explore Features</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="features">
+        <section class="intro card">
+            <h2>Our Services</h2>
+            <p>
+                Our platform manages every aspect of hospital operations — from appointments and patient records to
+                billing and equipment inventory. With secure access and intuitive features, healthcare providers save
+                time, improve efficiency, and keep all departments coordinated.
+            </p>
+        </section>
+
+        <section class="features-grid">
+            <div class="feature-card" id="appointment-card">
+                <h3>📅 Manage Appointments</h3>
+                <p>Schedule, update, and cancel patient appointments seamlessly.</p>
+                <a href="appointment.html" class="btn blue">Manage</a>
+            </div>
+
+            <div class="feature-card" id="patient-card">
+                <h3>🧑‍⚕️ Manage Patients</h3>
+                <p>Securely maintain patient records, medical history, reports, and detailed information.</p>
+                <a href="patient.html" class="btn green">Manage</a>
+            </div>
+
+            <div class="feature-card" id="payment-card">
+                <h3>💳 Process Payment</h3>
+                <p>Easily handle hospital payments securely, quickly, and without complications. Also Generate Bills.
+                </p>
+                <a href="payment-process.html" class="btn orange">Payment</a>
+            </div>
+
+            <div class="feature-card" id="equipment-card">
+                <h3>🏥 Medical Equipment Store</h3>
+                <p>Manage and track medical equipment inventory with ease.</p>
+                <a href="supplier.html" class="btn purple">Supplier</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Hospital Management System | Designed by Souvik Dey</p>
+    </footer>
+
+    <!-- External JS -->
+    <script src="home.js"></script>
+
+</body>
+
+</html>

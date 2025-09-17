@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Hospital Management System</title>
+    <!-- Font Awesome for eye icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="branding">
+            <img src="logo.png" alt="Hospital Logo" class="logo">
+            <h1>Hospital Management System</h1>
+        </div>
+    </header>
+
+    <!-- Login Box -->
+    <div class="login-container">
+        <h2>Admin Login</h2>
+        <form id="loginForm">
+            <!-- Email -->
+            <label for="email">User Name</label>
+            <input type="email" id="email" name="email" required placeholder="example@mail.com">
+
+            <!-- Password -->
+            <label for="password">Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="password" name="password" required placeholder="Enter password">
+                <span class="toggle-password" id="togglePassword">
+                    <i class="fa-regular fa-eye" id="eyeIcon"></i>
+                </span>
+            </div>
+
+            <!-- Forgot Password link -->
+            <p class="forgot">
+                <a href="#" id="forgotPassword">Forgot Password?</a>
+            </p>
+
+            <!-- Error message -->
+            <p id="errorMsg" class="error-message"></p>
+
+            <!-- Submit button -->
+            <button type="submit" id="loginBtn" disabled>Login</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Hospital Management System | Designed by Souvik Dey</p>
+    </footer>
+
+    <script src="login.js"></script>
+</body>
+
+</html>

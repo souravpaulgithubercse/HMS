@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Receipt Generator</title>
+    <link rel="stylesheet" href="generate-bill.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="branding">
+            <img src="logo.png" alt="Hospital Logo" class="logo">
+            <h1>Hospital Management System</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="payment-process.html"><i class="fa fa-home"></i>Payment Home</a></li>
+                <li><a href="request-financial-report.html"><i class="fa fa-map-marker-alt"></i>Financial Report</a>
+                </li>
+                <li><a href="generate-bill.html" class="active"><i class="fa-solid fa-file-invoice"></i>Generate
+                        Bill</a></li>
+                        <li class="profile-menu">
+                    <div class="profile-circle" id="profileCircle">S</div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <p id="userName">John Doe</p>
+                        <p id="userEmail">john@example.com</p>
+                        <hr>
+                        <a href="login.html" id="logoutBtn">Log out</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Form Section -->
+        <div class="form-section">
+            <h2>Enter Patient & Payment Details</h2>
+
+            <label>Patient Name</label>
+            <input type="text" id="patientName" placeholder="Enter full name" pattern="[A-Za-z\s]+"
+                title="Only letters are allowed" required>
+
+            <label>Patient ID</label>
+            <input type="text" id="patientId" placeholder="Enter Patient ID">
+
+            <label>Mobile Number</label>
+            <input type="text" id="patientMobile" placeholder="10-digit Mobile No" maxlength="10"
+                oninput="validateMobile()">
+
+            <label>Invoice ID</label>
+            <input type="text" id="invoiceId" placeholder="Enter Invoice ID">
+
+            <label>Department</label>
+            <select id="department" name="department" required>
+                <option value="">-- Select Department --</option>
+                <option>General Medicine</option>
+                <option>Cardiology</option>
+                <option>Orthopedics</option>
+                <option>Pediatrics</option>
+                <option>Dermatology</option>
+            </select>
+
+            <!-- Services -->
+            <div class="services">
+                <h3>Treatment / Services</h3>
+                <div id="servicesList">
+                    <div class="service-item">
+                        <input type="text" placeholder="Ex: Consultation" class="service-name">
+                        <input type="number" placeholder="Amount (₹)" class="service-amount">
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addService()">+ Add More</button>
+            </div>
+            <!-- Insurance Section -->
+            <label>Insurance / Mediclaim Name</label>
+            <input type="text" id="insuranceName" placeholder="Enter Insurance Provider">
+            <label>Insurance / Mediclaim Amount (₹)</label>
+            <input type="number" id="insuranceAmount" placeholder="Enter Insurance Coverage" min="0">
+
+
+            <label>Payment Method</label>
+            <select id="paymentMethod" name="paymentMethod" required>
+                <option value="">-- Select Payment Method --</option>
+                <option>Cash</option>
+                <option>Credit/Debit Card</option>
+                <option>UPI</option>
+                <option>Insurance</option>
+            </select>
+
+            <label>Date</label>
+            <input type="date" id="date">
+
+            <button onclick="generateReceipt()">Generate Receipt</button>
+            <button onclick="window.print()">🖨 Print Receipt</button>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <!-- Receipt Preview -->
+            <div class="receipt-section">
+                <h2>Receipt Preview</h2>
+                <div class="receipt" id="receiptOutput">
+                    <h3>Hospital Receipt</h3>
+                    <p><strong>Patient Name:</strong> ________</p>
+                    <p><strong>Patient ID:</strong> ________</p>
+                    <p><strong>Transaction No:</strong> ________</p>
+                    <p><strong>Department:</strong> ________</p>
+                    <p><strong>Services:</strong></p>
+                    <ul id="servicesOutput">
+                        <li>________ - ₹0</li>
+                    </ul>
+                    <p class="total-bill">Total Bill: ₹0</p>
+                    <p><strong>Insurance Name:</strong> ________</p>
+                    <p><strong>Insurance Amount:</strong> ₹0</p>
+                    <p><strong>Payment Method:</strong> ________</p>
+                    <p><strong>Date:</strong> ________</p>
+                    <hr>
+                    <p style="text-align:center;">✅ Thank you! Wishing you good health.</p>
+                </div>
+            </div>
+
+            <!-- Previous Transactions -->
+            <div class="transaction-box">
+                <h3>Previous Transaction History</h3>
+                <!-- Search Box -->
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 Search by Patient Name or ID or Transaction No"
+                        onkeyup="searchTransactions()">
+                </div>
+                <div class="transaction-box">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Transaction No</th>
+                                    <th>Patient Name</th>
+                                    <th>Patient ID</th>
+                                    <th>Department</th>
+                                    <th>Services</th>
+                                    <th>Gross Bill</th>
+                                    <th>Insurance</th>
+                                    <th>Final Bill</th>
+                                    <th>Payment Method</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactionTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Hospital Management System | Designed by Sourav Paul</p>
+    </footer>
+
+    <!-- Script -->
+    <script src="generate-bill.js"></script>
+</body>
+
+</html>

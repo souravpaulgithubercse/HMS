@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback - HMS</title>
+  <link rel="stylesheet" href="feedback.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="branding">
+      <img src="logo.png" alt="Hospital Logo" class="logo">
+      <h1>Hospital Management System</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="home.html"><i class="fa fa-home"></i> Home</a></li>
+                <li><a href="report.html"><i class="fa fa-chart-line"></i> Reports</a></li>
+        <li><a href="about.html"><i class="fa fa-info-circle"></i> About</a></li>
+        <li><a href="contact.html"><i class="fa fa-envelope"></i> Contact</a></li>
+        <li><a href="feedback.html" class="active"><i class="fa fa-comment-dots"></i> Feedback</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Feedback Section -->
+  <main>
+    <section class="feedback-section">
+      <h2>We Value Your Feedback</h2>
+      <p>Your feedback helps us improve our hospital services and provide you with the best care possible.</p>
+
+      <form id="feedbackForm" class="feedback-form">
+        <label for="name"><i class="fa fa-user"></i> Full Name:</label>
+        <input type="text" id="name" placeholder="Enter your name" required>
+
+        <label for="email"><i class="fa fa-envelope"></i> Email:</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+
+        <label><i class="fa fa-star"></i> Rate Our Services:</label>
+        <div class="star-rating">
+          <input type="radio" name="rating" id="star5" value="5"><label for="star5" title="Excellent">★</label>
+          <input type="radio" name="rating" id="star4" value="4"><label for="star4" title="Good">★</label>
+          <input type="radio" name="rating" id="star3" value="3"><label for="star3" title="Average">★</label>
+          <input type="radio" name="rating" id="star2" value="2"><label for="star2" title="Poor">★</label>
+          <input type="radio" name="rating" id="star1" value="1"><label for="star1" title="Very Poor">★</label>
+        </div>
+
+        <label for="feedback"><i class="fa fa-comment"></i> Your Feedback:</label>
+        <textarea id="feedback" placeholder="Write your feedback here..." required></textarea>
+
+        <button type="submit"><i class="fa fa-paper-plane"></i> Submit Feedback</button>
+      </form>
+
+      <!-- Success Message -->
+      <div id="successMessage" class="success-message hidden">
+        <i class="fa fa-check-circle"></i>
+        <h3>Thank you for your feedback!</h3>
+        <p>We truly appreciate your time and effort in helping us improve.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© <span id="year"></span> Hospital Management System | Designed by Sourav Paul</p>
+  </footer>
+
+  <!-- External JS -->
+  <script src="feedback.js"></script>
+</body>
+
+</html>

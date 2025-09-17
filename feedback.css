@@ -1,0 +1,302 @@
+:root {
+    --bg: #f4f8fc;
+    --card: #fff;
+    --accent: #1167b1;
+    --muted: #6b7280;
+    --radius: 12px;
+    --shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #f5f8fc, #eaf1f9);
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Decorative Background Shapes */
+body::before,
+body::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    z-index: 0;
+}
+
+body::before {
+    top: -150px;
+    left: -150px;
+    width: 400px;
+    height: 400px;
+    background: #0078d4;
+}
+
+body::after {
+    bottom: 0px;
+    right: -150px;
+    width: 450px;
+    height: 450px;
+    background: #0d3559;
+}
+
+/* Header */
+header {
+    background: linear-gradient(90deg, #0d3559, #0078d4, #00b4d8);
+    color: white;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .branding {
+    display: flex;
+    align-items: center;
+}
+
+header .logo {
+    width: 100px;
+    margin-right: 10px;
+}
+
+header h1 {
+    font-size: 20px;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+nav a:hover,
+nav a.active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Feedback Section */
+.feedback-section {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.feedback-section h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.feedback-section p {
+    color: var(--muted);
+    margin-bottom: 30px;
+}
+
+.feedback-form {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    text-align: left;
+}
+
+.feedback-form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+.feedback-form input,
+.feedback-form textarea,
+.feedback-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.feedback-form textarea {
+    height: 120px;
+    resize: none;
+}
+
+.feedback-form button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.feedback-form button:hover {
+    background: #0d4a7a;
+}
+
+/* Make body take full height */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Push footer to the bottom */
+main {
+    flex: 1;
+}
+
+/* Footer stays at the bottom */
+footer {
+    text-align: center;
+    background: linear-gradient(90deg, #0d3559, #0078d4, #00b4d8);
+    color: white;
+    padding: 15px;
+    margin-top: auto;
+    /* This forces footer down */
+}
+
+
+@media (max-width: 768px) {
+    .feedback-section {
+        margin: 30px 15px;
+    }
+}
+
+/* 🎨 Floating Labels for Inputs */
+.feedback-form input:focus,
+.feedback-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(17, 103, 177, 0.3);
+    transition: 0.3s;
+}
+
+/* ✨ Card Hover Animation */
+.feedback-form {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feedback-form:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* ⭐ Star Rating Styling */
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 5px;
+    margin: 10px 0 20px;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 28px;
+    color: #ccc;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.star-rating input:checked~label,
+.star-rating label:hover,
+.star-rating label:hover~label {
+    color: #ffb400;
+    transform: scale(1.2);
+}
+
+/* ✅ Success Message Animation */
+.success-message {
+    background: #e6f7f1;
+    border: 1px solid #38a169;
+    padding: 20px;
+    border-radius: var(--radius);
+    margin-top: 20px;
+    text-align: center;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.success-message i {
+    color: #2f855a;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.success-message.hidden {
+    display: none;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 🌸 Decorative Gradient Overlay for Form */
+.feedback-section::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(0, 120, 212, 0.2);
+    z-index: -1;
+    filter: blur(80px);
+}
+
+.feedback-section::after {
+    content: "";
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(0, 180, 216, 0.2);
+    z-index: -1;
+    filter: blur(100px);
+}

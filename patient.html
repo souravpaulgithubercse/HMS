@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>HMS — Manage Patients</title>
+</head>
+
+<body>
+    <div class="footer">
+        <p>© 2025 Hospital Management System | Designed by Tamojjyoti Maitra</p>
+    </div>
+    <link rel="stylesheet" href="patient.css">
+
+    <body>
+        <!-- Full-width header (moved up) -->
+        <header>
+            <div class="branding">
+                <div class="logo">
+                    <img src="logo.png" alt="Hospital Logo" />
+                </div>
+                <div>
+                    <h1>Manage Patients</h1>
+                    <p class="lead">Quickly view and manage patient records</p>
+                </div>
+            </div>
+            <li class="profile-menu">
+                    <div class="profile-circle" id="profileCircle">S</div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <p id="userName">John Doe</p>
+                        <p id="userEmail">john@example.com</p>
+                        <hr>
+                        <a href="login.html" id="logoutBtn">Log out</a>
+                    </div>
+                </li>
+
+            <div class="toolbar" aria-hidden="false">
+                <div class="search" role="search" aria-label="Search patients">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M21 21l-4.35-4.35" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+                    <input id="searchInput" placeholder="🔍 Search by name, id or phone" aria-label="Search patients" />
+                </div>
+
+                <div class="controls" role="group" aria-label="controls">
+                    <button id="addDemo" class="btn ghost" title="Add demo patient">Add Patients</button>
+                    <button id="editBtn" class="btn ghost" title="Edit patient">Edit</button>
+                    <button id="resetBtn" class="btn ghost" title="Reset list">Reset</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Wrap starts here for rest of content -->
+        <div class="wrap" role="main">
+            <section id="listSection" aria-live="polite">
+                <!-- patient cards -->
+            </section>
+        </div>
+    </body>
+
+
+    <section id="listSection" aria-live="polite">
+        <div id="grid" class="grid">
+            <!-- patient cards inserted by JS -->
+        </div>
+
+        <div id="emptyState" class="empty" style="display:none;margin-top:16px;">
+            <strong>No patients found</strong>
+            <div style="margin-top:8px;color:var(--muted)">There are no patient records to display. Add new patients or reset the list.</div>
+        </div>
+    </section>
+    </div>
+
+    <script>
+        // Sample data: two patients by default (as requested)
+        const DEFAULT_PATIENTS = [{
+            id: 'P-1001',
+            name: 'Aarav Sharma',
+            age: 34,
+            gender: 'Male',
+            phone: '+91 98765 43210',
+            ward: 'General Medicine',
+            notes: 'Diabetic — follow-up in 2 weeks'
+        }, {
+            id: 'P-1002',
+            name: 'Maya Singh',
+            age: 27,
+            gender: 'Female',
+            phone: '+91 91234 56789',
+            ward: 'OB-GYN',
+            notes: 'Postpartum observation'
+        }];
+
+        // UI elements
+        const grid = document.getElementById('grid');
+        const emptyState = document.getElementById('emptyState');
+        const searchInput = document.getElementById('searchInput');
+        const addDemo = document.getElementById('addDemo');
+        const resetBtn = document.getElementById('resetBtn');
+        // const edit = document.getElementById('editBtn'); 
+
+        // We keep patient list in memory for now (easy to extend to localStorage or backend)
+        let patients = JSON.parse(localStorage.getItem('hms_patients')) || DEFAULT_PATIENTS.slice();
+
+        // Render patients
+        function renderList(filter = '') {
+            grid.innerHTML = '';
+            const normalizedFilter = filter.trim().toLowerCase();
+
+            const filtered = patients.filter(p => {
+                if (!normalizedFilter) return true;
+                return (p.name + ' ' + p.id + ' ' + p.phone + ' ' + (p.ward || '')).toLowerCase().includes(normalizedFilter);
+            });
+
+            if (filtered.length === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+            }
+
+            for (const p of filtered) {
+                const card = document.createElement('article');
+                card.className = 'card';
+                card.setAttribute('data-id', p.id);
+                card.innerHTML = `
+          <div class="avatar" aria-hidden="true">${initials(p.name)}</div>
+          <div class="info">
+            <h3 class="name">${escapeHtml(p.name)} <small style="color:var(--muted);font-weight:600">• ${p.id}</small></h3>
+            <p class="meta">${p.age} yrs • ${p.gender} • ${escapeHtml(p.phone)}</p>
+            <div class="badges">
+              <span class="badge">Ward: ${escapeHtml(p.ward || '—')}</span>
+              <span class="badge" title="${escapeHtml(p.notes||'')}">${escapeHtml(shorten(p.notes || 'No notes'))}</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="small view" aria-label="View ${escapeHtml(p.name)}">View</button>
+            <button class="small edit" aria-label="Edit ${escapeHtml(p.name)}" data-id="${p.id}">Edit</button>
+            <button class="small delete" aria-label="Delete ${escapeHtml(p.name)}" data-id="${p.id}">Delete</button>
+            
+          </div>
+        `;
+                grid.appendChild(card);
+            }
+
+            // attach delete listeners
+            grid.querySelectorAll('.delete').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = e.currentTarget.getAttribute('data-id');
+                    handleDelete(id);
+                });
+            });
+            // attach edit listeners
+            grid.querySelectorAll('.edit').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = e.currentTarget.getAttribute('data-id');
+                    handleEdit(id);
+                });
+            });
+
+            // view placeholder
+            grid.querySelectorAll('.view').forEach((btn, idx) => {
+                btn.addEventListener('click', () => {
+                    const p = filtered[idx];
+                    if (p) alert(`${p.name} — ${p.id}\n\nAge: ${p.age}\nGender: ${p.gender}\nPhone: ${p.phone}\nWard: ${p.ward}\nNotes: ${p.notes}`);
+                });
+            });
+
+            // persist to localStorage
+            localStorage.setItem('hms_patients', JSON.stringify(patients));
+        }
+
+        function handleDelete(id) {
+            // confirm deletion
+            const patient = patients.find(x => x.id === id);
+            if (!patient) return;
+
+            const confirmed = confirm(`Delete patient ${patient.name} (${patient.id})? This action cannot be undone.`);
+            if (!confirmed) return;
+
+            patients = patients.filter(p => p.id !== id);
+            renderList(searchInput.value);
+        }
+
+        function handleEdit(id) {
+            const patient = patients.find(p => p.id === id);
+            if (!patient) return;
+
+            let name = prompt("Edit name:", patient.name);
+            if (name !== null && !isValidName(name)) {
+                alert("Invalid name! Only letters allowed.");
+                return;
+            }
+            if (name !== null) patient.name = name;
+
+            let ageInput = prompt("Edit age:", patient.age);
+            if (ageInput !== null) {
+                let age = parseInt(ageInput, 10);
+                if (!isValidAge(age)) {
+                    alert("Invalid age! Enter between 1 and 120.");
+                    return;
+                }
+                patient.age = age;
+            }
+
+            let gender = prompt("Edit gender (Male/Female/Other):", patient.gender);
+            if (gender !== null && !isValidGender(gender)) {
+                alert("Invalid gender! Enter Male, Female, or Other.");
+                return;
+            }
+            if (gender !== null) patient.gender = gender;
+
+            let phone = prompt("Edit phone:", patient.phone);
+            if (phone !== null && !isValidPhone(phone)) {
+                alert("Invalid phone number! Must be exactly 10 digits.");
+                return;
+            }
+            if (phone !== null) patient.phone = phone;
+
+            let ward = prompt("Edit ward:", patient.ward);
+            if (ward !== null) patient.ward = ward;
+
+            let notes = prompt("Edit notes:", patient.notes);
+            if (notes !== null) patient.notes = notes;
+
+            renderList(searchInput.value);
+        }
+        // ✅ Validation helpers
+        function isValidName(name) {
+            return /^[A-Za-z ]+$/.test(name.trim());
+        }
+
+        function isValidAge(age) {
+            return Number.isInteger(age) && age > 0 && age <= 120;
+        }
+
+        function isValidPhone(phone) {
+            return /^\d{10}$/.test(phone);
+        }
+
+        function isValidGender(gender) {
+            const valid = ["male", "female", "other"];
+            return valid.includes(gender.toLowerCase());
+        }
+
+        // helpers
+        function initials(name) {
+            const parts = (name || '').split(' ').filter(Boolean);
+            if (parts.length === 0) return 'P';
+            if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+            return (parts[0][0] + parts[1][0]).toUpperCase();
+        }
+
+        function shorten(text, n = 24) {
+            if (!text) return '';
+            return text.length > n ? text.slice(0, n - 1) + '…' : text;
+        }
+
+        function escapeHtml(s) {
+            if (!s) return '';
+            return String(s)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        // search - live
+        searchInput.addEventListener('input', (e) => {
+            renderList(e.target.value);
+        });
+
+        // add demo patient (quick)
+        // add patient manually
+        addDemo.addEventListener('click', () => {
+            const nextId = generateId();
+
+            let name = prompt("Enter patient name:");
+            if (!name || !isValidName(name)) {
+                alert("Invalid name! Name should contain only letters.");
+                return;
+            }
+
+            let age = parseInt(prompt("Enter age:"), 10);
+            if (!isValidAge(age)) {
+                alert("Invalid age! Enter a number between 1 and 120.");
+                return;
+            }
+
+            let gender = prompt("Enter gender (Male/Female/Other):");
+            if (!gender || !isValidGender(gender)) {
+                alert("Invalid gender! Enter Male, Female, or Other.");
+                return;
+            }
+
+            let phone = prompt("Enter phone number (10 digits):");
+            if (!isValidPhone(phone)) {
+                alert("Invalid phone number! Enter exactly 10 digits.");
+                return;
+            }
+
+            let ward = prompt("Enter ward:") || "General";
+            let notes = prompt("Enter notes:") || "";
+
+            const newPatient = {
+                id: nextId,
+                name,
+                age,
+                gender,
+                phone,
+                ward,
+                notes
+            };
+            patients.unshift(newPatient);
+            renderList(searchInput.value);
+
+            setTimeout(() => {
+                const node = grid.querySelector(`[data-id="${newPatient.id}"]`);
+                if (node) node.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }, 80);
+        });
+        // reset to defaults
+        resetBtn.addEventListener('click', () => {
+            const ok = confirm('Reset patient list to default two demo patients? This will remove local changes.');
+            if (!ok) return;
+            patients = DEFAULT_PATIENTS.slice();
+            localStorage.setItem('hms_patients', JSON.stringify(patients));
+            renderList('');
+            searchInput.value = '';
+        });
+
+        function generateId() {
+            // P- + 4 digits unique based on timestamp
+            const t = Date.now().toString().slice(-6);
+            return 'P-' + t;
+        }
+// --- Profile Dropdown for Sourav Paul ---
+const profileCircle = document.getElementById("profileCircle");
+const profileDropdown = document.getElementById("profileDropdown");
+const userNameElem = document.getElementById("userName");
+const userEmailElem = document.getElementById("userEmail");
+const logoutBtn = document.getElementById("logoutBtn");
+
+// Get logged-in email from sessionStorage
+const loggedInEmail = sessionStorage.getItem("userEmail")?.trim().toLowerCase();
+
+if (loggedInEmail !== "tamojyoti.cse123175@bppimt.ac.in" & "souvikdey1810@gmail.com") {
+    alert("⚠️ Access restricted to Tamojyoti Maitra only!");
+    window.location.href = "login.html";
+} else {
+    // Set profile info
+    const username = "Tamojyoti Maitra";
+    userNameElem.textContent = username;
+    userEmailElem.textContent = loggedInEmail;
+    profileCircle.textContent = username.charAt(0).toUpperCase();
+
+    // Toggle dropdown visibility on click
+    profileCircle.addEventListener("click", () => {
+        profileDropdown.style.display = profileDropdown.style.display === "block" ? "none" : "block";
+    });
+
+    // Hide dropdown when clicking outside
+    window.addEventListener("click", (e) => {
+        if (!profileCircle.contains(e.target) && !profileDropdown.contains(e.target)) {
+            profileDropdown.style.display = "none";
+        }
+    });
+
+    // Logout functionality
+    logoutBtn.addEventListener("click", () => {
+        sessionStorage.clear(); // Clear session
+        window.location.href = "login.html"; // Redirect to login
+    });
+}
+        // initial render
+        renderList('');
+    </script>
+</body>
+
+</html>

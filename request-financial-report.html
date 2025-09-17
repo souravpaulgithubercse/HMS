@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Financial Report Request</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="request-financial-report.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="branding">
+      <img src="logo.png" alt="Hospital Logo" class="logo">
+      <h1>Hospital Management System</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="payment-process.html"><i class="fa fa-home"></i>Payment Home</a></li>
+        <li><a href="request-financial-report.html" class="active"><i class="fa fa-map-marker-alt"></i>Financial
+            Report</a></li>
+        <li><a href="generate-bill.html"><i class="fa-solid fa-file-invoice"></i>Generate Bill</a></li>
+        <li class="profile-menu">
+                    <div class="profile-circle" id="profileCircle">S</div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <p id="userName">John Doe</p>
+                        <p id="userEmail">john@example.com</p>
+                        <hr>
+                        <a href="login.html" id="logoutBtn">Log out</a>
+                    </div>
+                </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="main-container">
+    <!-- Left Column: Form -->
+    <div class="column">
+      <div class="container">
+        <h2>Financial Report</h2>
+        <form id="reportForm">
+          <div class="section">
+            <h3>👤 Patient Information</h3>
+            <label for="name">Full Name</label>
+            <input type="text" id="patientName" name="patientName" placeholder="Enter patient name" pattern="[A-Za-z\s]+"
+              title="Only letters are allowed" required>
+            <label for="id">Patient ID</label>
+            <input type="text" id="id" name="id" placeholder="Enter patient ID" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter email address" required>
+
+            <label for="phone">Mobile Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter 10-digit Mobile No" pattern="[6-9][0-9]{9}"
+              minlength="10" maxlength="10" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+              required>
+          </div>
+
+          <div class="section">
+            <h3>📑 Report Details</h3>
+            <label>Time Period</label>
+            <div class="date-range">
+              <input type="date" id="fromDate" name="fromDate" required>
+              <span>to</span>
+              <input type="date" id="toDate" name="toDate" required>
+            </div>
+            <small id="daysCount" class="info-text"></small>
+
+            <label for="reportType">Report Type</label>
+            <select id="reportType" name="reportType" required>
+              <option value="">-- Select Report Type --</option>
+              <option>Full Financial Summary</option>
+              <option>Outstanding Balance</option>
+              <option>Insurance Claims</option>
+              <option>Medi Claim</option>
+              <option>Payment History</option>
+            </select>
+          </div>
+
+          <div class="section">
+            <h3>📝 Additional Notes</h3>
+            <textarea id="message" name="message" placeholder="Write any extra details..."></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="reset" class="secondary">Clear</button>
+            <button type="submit">Submit Request</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Right Column: Submitted Requests -->
+    <div class="column">
+      <div class="container">
+        <h2>📋 Submitted Requests</h2>
+        <table id="requestsTable">
+          <thead>
+            <tr>
+              <th>Invoice ID</th>
+              <th>Patient Name</th>
+              <th>Patient ID</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Report Type</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <div class="form-actions" style="margin-top:15px;">
+          <button id="clearRequests" class="secondary">🗑️ Clear All Requests</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Hospital Management System | Designed by Sourav Paul</p>
+  </footer>
+
+  <script src="request-financial-report.js"></script>
+</body>
+
+</html>
